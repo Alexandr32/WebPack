@@ -1,0 +1,30 @@
+/* ~ - указывает что библиотеку нужно брать из папки node_modules */
+@import "~normalize.css";
+@import "roboto.css";
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    padding-top: 2rem;
+    max-width: 100px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: coral;
+}
+
+.logo {
+    background-image: url("../assets/webpack-logo.png");
+    background-size: cover;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.code {
+    color:crimson;
+}
