@@ -88,6 +88,7 @@ module.exports = {
     },
     /** оптимизация финального bundel */
     optimization: optimization(),
+    devtool: isDev ? 'source-map' : '',
     /** подключается через npm */
     plugins: [
         new HTMLWebpackPlugin({
