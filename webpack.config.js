@@ -48,10 +48,31 @@ const optimization = () => {
  * для работы лучше использовать cross-env он сам определяет в какой ос ведется
  * разработка с создает переменную
  * см. packege.json -> scripts -> "dev"
+ * npm install --save-dev cross-env
  */
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 console.log('Is Dev', isDev);
+
+const babelOptions = preset => {
+    const opts = {
+      presets: [
+        '@babel/preset-env'
+      ],
+      plugins: [
+        /** https://babeljs.io/docs/en/babel-preset-env 
+        * + для acync await нужен @babel/polyfill
+        */
+        '@babel/plugin-proposal-class-properties'
+      ]
+    }
+  
+    if (preset) {
+      opts.presets.push(preset)
+    }
+  
+    return opts
+  }
 
 module.exports = {
     /** говорит где лежат все исходники приложения */
@@ -176,34 +197,13 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            '@babel/preset-env'
-                        ],
-                        plugins: [
-                            '@babel/plugin-proposal-class-properties'
-                        ]
-                    }
-                }
+                loader: babelOptions()
             },
             /** Подключение ts */
             {
                 test: /\.ts$/,
                 exclude: /node_modules/,
-                loader: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            '@babel/preset-env',
-                            '@babel/preset-typescript'
-                        ],
-                        plugins: [
-                            '@babel/plugin-proposal-class-properties'
-                        ]
-                    }
-                }
+                loader: babelOptions('@babel/preset-typescript')
             }
         ]
     }
